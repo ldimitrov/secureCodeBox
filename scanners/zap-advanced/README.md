@@ -56,7 +56,7 @@ Listed below are the arguments supported by the `zap-advanced-scan` script.
 The command line interface can be used to easily run server scans: `-t www.example.com`
 
 ```bash
-usage: zap-client [-h] -z ZAP_URL [-a API_KEY] [-c CONFIG_FOLDER] -t TARGET [-o OUTPUT_FOLDER] [-r {XML,JSON,HTML,MD}]
+usage: zap-client [-h] -z ZAP_URL [-a API_KEY] [-c CONFIG_FOLDER] -t TARGET [-o OUTPUT_FOLDER] [-r {XML,XML-plus,JSON,JSON-plus,HTML,HTML-plus,MD}]
 
 OWASP secureCodeBox OWASP ZAP Client  (can be used to automate OWASP ZAP instances based on YAML configuration files.)
 
@@ -72,7 +72,7 @@ optional arguments:
                         The target to scan with OWASP ZAP.
   -o OUTPUT_FOLDER, --output-folder OUTPUT_FOLDER
                         The path to a local folder used to store the output files, eg. the ZAP Report or logfiles.
-  -r {XML,JSON,HTML,MD}, --report-type {XML,JSON,HTML,MD}
+  -r {XML,XML-plus,JSON,JSON-plus,HTML,HTML-plus,MD}, --report-type {XML,XML-plus,JSON,JSON-plus,HTML,HTML-plus,MD}
                         The OWASP ZAP Report Type.
 ```
 
@@ -501,6 +501,7 @@ zapConfiguration:
 | scanner.image.repository | string | `"docker.io/securecodebox/scanner-zap-advanced"` | Container Image to run the scan |
 | scanner.image.tag | string | `nil` | defaults to the charts version |
 | scanner.nameAppend | string | `nil` | append a string to the default scantype name. |
+| scanner.podSecurityContext | object | `{}` | Optional securityContext set on scanner pod (see: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/) |
 | scanner.resources | object | `{}` | CPU/memory resource requests/limits (see: https://kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource/, https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-resource/) |
 | scanner.securityContext | object | `{"allowPrivilegeEscalation":false,"capabilities":{"drop":["all"]},"privileged":false,"readOnlyRootFilesystem":false,"runAsNonRoot":false}` | Optional securityContext set on scanner container (see: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/) |
 | scanner.securityContext.allowPrivilegeEscalation | bool | `false` | Ensure that users privileges cannot be escalated |
@@ -510,7 +511,7 @@ zapConfiguration:
 | scanner.securityContext.runAsNonRoot | bool | `false` | Enforces that the scanner image is run as a non root user |
 | scanner.tolerations | list | `[]` | Optional tolerations settings that control how the scanner job is scheduled (see: https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) |
 | scanner.ttlSecondsAfterFinished | string | `nil` | seconds after which the kubernetes job for the scanner will be deleted. Requires the Kubernetes TTLAfterFinished controller: https://kubernetes.io/docs/concepts/workloads/controllers/ttlafterfinished/ |
-| zapConfiguration | object | `{}` | All `scanType` specific configuration options. Feel free to add more configuration options. All configuration options can be overriden by scan specific configurations if defined. Please have a look into the README.md to find more configuration options. |
+| zapConfiguration | object | `{}` | All `scanType` specific configuration options. Feel free to add more configuration options. All configuration options can be overridden by scan specific configurations if defined. Please have a look into the README.md to find more configuration options. |
 | zapContainer.env | list | `[]` | Optional environment variables mapped into each scanJob (see: https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/) |
 | zapContainer.envFrom | list | `[]` | Optional mount environment variables from configMaps or secrets (see: https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables) |
 | zapContainer.extraVolumeMounts | list | `[{"mountPath":"/home/zap/.ZAP_D/scripts/scripts/authentication/","name":"zap-scripts-authentication","readOnly":true},{"mountPath":"/home/zap/.ZAP_D/scripts/scripts/session/","name":"zap-scripts-session","readOnly":true}]` | Optional VolumeMounts mapped into each scanJob (see: https://kubernetes.io/docs/concepts/storage/volumes/) |

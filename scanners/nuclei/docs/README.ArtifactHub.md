@@ -187,7 +187,7 @@ helm install nuclei secureCodeBox/nuclei --set="nucleiTemplateCache.enabled=fals
 | nucleiTemplateCache.concurrencyPolicy | string | `"Replace"` | Determines how kubernetes handles cases where multiple instances of the cronjob would work if they are running at the same time. See: https://kubernetes.io/docs/tasks/job/automated-tasks-with-cron-jobs/#concurrency-policy |
 | nucleiTemplateCache.enabled | bool | `true` | Enables or disables the use of an persistent volume to cache the always downloaded nuclei-templates for all scans. |
 | nucleiTemplateCache.failedJobsHistoryLimit | int | `10` | Determines how many failed jobs are kept until kubernetes cleans them up. See: https://kubernetes.io/docs/tasks/job/automated-tasks-with-cron-jobs/#jobs-history-limits |
-| nucleiTemplateCache.schedule | string | `"0 */1 * * *"` | The schedule indicates when and how often the nuclei template cache should be updated  |
+| nucleiTemplateCache.schedule | string | `"0 */1 * * *"` | The schedule indicates when and how often the nuclei template cache should be updated |
 | nucleiTemplateCache.successfulJobsHistoryLimit | int | `3` | Determines how many successful jobs are kept until kubernetes cleans them up. See: https://kubernetes.io/docs/tasks/job/automated-tasks-with-cron-jobs/#jobs-history-limits |
 | parser.affinity | object | `{}` | Optional affinity settings that control how the parser job is scheduled (see: https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/) |
 | parser.env | list | `[]` | Optional environment variables mapped into each parseJob (see: https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/) |
@@ -208,6 +208,7 @@ helm install nuclei secureCodeBox/nuclei --set="nucleiTemplateCache.enabled=fals
 | scanner.image.repository | string | `"docker.io/projectdiscovery/nuclei"` | Container Image to run the scan |
 | scanner.image.tag | string | `nil` | defaults to the charts appVersion |
 | scanner.nameAppend | string | `nil` | append a string to the default scantype name. |
+| scanner.podSecurityContext | object | `{}` | Optional securityContext set on scanner pod (see: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/) |
 | scanner.resources | object | `{}` | CPU/memory resource requests/limits (see: https://kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource/, https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-resource/) |
 | scanner.securityContext | object | `{"allowPrivilegeEscalation":false,"capabilities":{"drop":["all"]},"privileged":false,"readOnlyRootFilesystem":false,"runAsNonRoot":false}` | Optional securityContext set on scanner container (see: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/) |
 | scanner.securityContext.allowPrivilegeEscalation | bool | `false` | Ensure that users privileges cannot be escalated |

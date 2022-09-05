@@ -60,6 +60,7 @@ var _ = Describe("ContainerScan controller", func() {
 		}
 
 		It("Should not create scans while the scan type is not installed", func() {
+    
 			createNamespace(ctx, namespace)
 			fakeDeployment := map[string]string{"bkimminich/juice-shop": "9342db143db5804dee3e64ff789be6ad8dd94f0491b2f50fa67c78be204081e2",
 				"nginx": "0d17b565c37bcbd895e9d92315a05c1c3c9a29f762b011a10c54a66cd53c9b31"}

@@ -70,6 +70,11 @@ scanner:
   # scanner.extraContainers -- Optional additional Containers started with each scanJob (see: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)
   extraContainers: []
 
+  # scanner.podSecurityContext -- Optional securityContext set on scanner pod (see: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
+  podSecurityContext:
+    {}
+    # fsGroup: 2000
+
   # scanner.securityContext -- Optional securityContext set on scanner container (see: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
   securityContext:
     # scanner.securityContext.runAsNonRoot -- Enforces that the scanner image is run as a non root user
@@ -95,12 +100,12 @@ nucleiTemplateCache:
   # -- Enables or disables the use of an persistent volume to cache the always downloaded nuclei-templates for all scans.
   enabled: true
   # -- Depending on your setup you can define the pvc access mode for one `ReadWriteOnce` or multiple node clusters `ReadWriteMany`
-  accessMode: 
+  accessMode:
     - ReadWriteOnce
     - ReadOnlyMany
   # every day at 08:00: "0 8 * * *"
   # every full hour: "0 */1 * * *""
-  # -- The schedule indicates when and how often the nuclei template cache should be updated 
+  # -- The schedule indicates when and how often the nuclei template cache should be updated
   schedule: "0 */1 * * *"
   # -- Determines how many successful jobs are kept until kubernetes cleans them up. See: https://kubernetes.io/docs/tasks/job/automated-tasks-with-cron-jobs/#jobs-history-limits
   successfulJobsHistoryLimit: 3
