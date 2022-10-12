@@ -151,3 +151,8 @@ helm upgrade --install nmap secureCodeBox/nmap --set=cascadingRules.enabled=true
 
 ➡️  [Reference: #1347](https://github.com/secureCodeBox/secureCodeBox/pull/1347)
 
+
+### Rename host to hostname in zap findings
+The `zap` and `zap-advanced` parsers where changed to increase the consistency between the different SCB scanners. The `zap` and `zap-advanced` findings will now report `host` as `hostname`.
+
+➡️  [Reference: #1346](https://github.com/secureCodeBox/secureCodeBox/pull/1346)
